@@ -1,0 +1,44 @@
+Sub FromExcelToWord()
+ 
+'Dim MyRange As Excel.Range
+'Dim wd As Word.Application
+'Dim wdDoc As Word.Document
+'Dim WdRange As Word.Range
+'Sheets("Форма").Range("C6:C22").Copy
+'Set wd = New Word.Application
+'Set wdDoc = wd.Documents.Open(ThisWorkbook.Path & "\" & "Doc1.docm")
+'wd.Visible = True
+'Set WdRange = wdDoc.Bookmarks("макрос").Range
+'On Error Resume Next
+'WdRange.Tables(1).Delete
+'WdRange.Paste
+'WdRange.Tables(1).Columns.SetWidth (MyRange.Width / MyRange.Columns.Count), wdAdjustSameWidth
+'Set wd = Nothing
+'Set wdDoc = Nothing
+'Set WdRange = Nothing
+
+Dim wda As Object
+Dim wda1 As Object
+Dim wda2 As Object
+Dim wda3 As Object
+Dim wda4 As Object
+Set wda = CreateObject("Word.Application")
+With wda
+.Visible = True
+.Documents.Open (ThisWorkbook.Path & "\" & "Doc1.docm")
+.ActiveDocument.Bookmarks("zakladca").Select
+End With
+Worksheets("Форма").Activate
+'Range("C6:C22").SpecialCells(xlCellTypeConstants).Copy
+Range("C6:C22").Copy
+wda.Selection.Paste
+With wda
+.Visible = True
+.ActiveDocument.Bookmarks("zakladca2").Select
+End With
+Worksheets("Форма").Activate
+Range("D6:D22").Copy
+wda.Selection.Paste
+Application.CutCopyMode = False
+
+End Sub

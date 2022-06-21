@@ -1,0 +1,219 @@
+Sub Month()
+Dim Month As Variant
+1
+Month = InputBox("Введите номер месяца исполнения контракта от 1 до 12 (1-12), если их два, то разделите точкой (1.2-12.1)")
+MsgBox Month
+Worksheets("Форма").Cells(1, 1).Value = Month
+'если ошибка в выборе
+If Month = "" Then
+MsgBox "ничего не выбрано. выберите число от 1 до 12"
+
+ElseIf Month >= 13 Then
+MsgBox "в году 12 мес. выберите число от 1 до 12"
+
+ElseIf Month = 0 Then
+MsgBox "ну как ноль то? выберите число от 1 до 12"
+End If
+
+'1=январь
+If Worksheets("Форма").Cells(1, 1).Value = 1 Then
+Sheets("доли").Activate
+ActiveSheet.Range("B2:B18").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'2=февраль
+If Worksheets("Форма").Cells(1, 1).Value = 2 Then
+Sheets("доли").Activate
+ActiveSheet.Range("E2:E18").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'3=март
+If Worksheets("Форма").Cells(1, 1).Value = 3 Then
+Sheets("доли").Activate
+ActiveSheet.Range("H2:H18").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'4=апрель
+If Worksheets("Форма").Cells(1, 1).Value = 4 Then
+Sheets("доли").Activate
+ActiveSheet.Range("K2:K18").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'5=май
+If Worksheets("Форма").Cells(1, 1).Value = 5 Then
+Sheets("доли").Activate
+ActiveSheet.Range("N2:N18").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'6=июнь
+If Worksheets("Форма").Cells(1, 1).Value = 6 Then
+Sheets("доли").Activate
+ActiveSheet.Range("B21:B37").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'7=июль
+If Worksheets("Форма").Cells(1, 1).Value = 7 Then
+Sheets("доли").Activate
+ActiveSheet.Range("E21:E37").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'8=август
+If Worksheets("Форма").Cells(1, 1).Value = 8 Then
+Sheets("доли").Activate
+ActiveSheet.Range("H21:H37").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'9=сентябрь
+If Worksheets("Форма").Cells(1, 1).Value = 9 Then
+Sheets("доли").Activate
+ActiveSheet.Range("K21:K37").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'10=октябрь
+If Worksheets("Форма").Cells(1, 1).Value = 10 Then
+Sheets("доли").Activate
+ActiveSheet.Range("N21:N37").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'11=ноябрь
+If Worksheets("Форма").Cells(1, 1).Value = 11 Then
+Sheets("доли").Activate
+ActiveSheet.Range("B40:B56").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'12=декабрь
+If Worksheets("Форма").Cells(1, 1).Value = 12 Then
+Sheets("доли").Activate
+ActiveSheet.Range("E40:E56").Select
+Selection.Copy
+Sheets("Форма").Activate
+ActiveSheet.Cells(6, 3).PasteSpecial Paste:=xlPasteValues
+MsgBox "доли успешно проставлены"
+End If
+
+'1.2=январь,февраль
+If Worksheets("Форма").Cells(1, 1).Value = 1.2 Then
+'Worksheets("Форма").Range("C6:C22").Value = Application.WorksheetFunction.Average(Arg1, Arg2)
+'Worksheets("Форма").Range("C6").FormulaR1C1 = "=AVERAGE(" & Sheets(доли).Name & "!B2:E2)"
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!B2, доли!E2)"
+'ActiveCell.Formula = (strFormula)
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+
+MsgBox "доли успешно проставлены"
+End If
+
+'2.3=февраль, март
+If Worksheets("Форма").Cells(1, 1).Value = 2.3 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!E2, доли!H2)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'3.4=март, апрель
+If Worksheets("Форма").Cells(1, 1).Value = 3.4 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!H2, доли!K2)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'4.5=апрель, май
+If Worksheets("Форма").Cells(1, 1).Value = 4.5 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!K2, доли!N2)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'5.6=май, июнь
+If Worksheets("Форма").Cells(1, 1).Value = 5.6 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!N2, доли!B21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'6.7=июнь, июль
+If Worksheets("Форма").Cells(1, 1).Value = 6.7 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!B21, доли!E21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'7.8=июль, август
+If Worksheets("Форма").Cells(1, 1).Value = 7.8 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!E21, доли!H21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'8.9=август, сентябрь
+If Worksheets("Форма").Cells(1, 1).Value = 8.9 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!H21, доли!K21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'9.10=сентябрь,октябрь
+If Worksheets("Форма").Cells(1, 1).Value = 9.1 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!K21, доли!N21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'9.10=сентябрь,октябрь
+If Worksheets("Форма").Cells(1, 1).Value = 9.1 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!K21, доли!N21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+'9.10=сентябрь,октябрь
+If Worksheets("Форма").Cells(1, 1).Value = 9.1 Then
+Worksheets("Форма").Range("C6").Formula = "=AVERAGE(доли!K21, доли!N21)"
+Worksheets("Форма").Range("C6").AutoFill Destination:=Worksheets("Форма").Range("C6:C22"), Type:=xlFillDefault
+MsgBox "доли успешно проставлены"
+End If
+
+End Sub

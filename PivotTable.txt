@@ -1,0 +1,63 @@
+Sub Pivot()
+
+Dim WBPT As Workbook
+Dim PTCache As PivotCache
+Dim PT As PivotTable
+Dim PRange As Range
+Dim FinalRow As Long
+Dim WSD As Worksheet
+Dim PTChart As Chart
+Dim PTChartRange As Range
+
+
+Application.ScreenUpdating = False
+
+'определение области ввода и настройки кеша
+FinalRow = ThisWorkbook.Worksheets("Т").Cells(Application.Rows.Count, 1).End(xlUp).Row
+FinalCol = ThisWorkbook.Worksheets("Т").Cells(1, Application.Columns.Count).End(xlToLeft).Column
+Set PRange = ThisWorkbook.Worksheets("Т").Cells(1, 1).Resize(FinalRow, FinalCol)
+Set PTCache = ActiveWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:=PRange.Address)  'создание кеша для сводной таблицы
+Set PT = PTCache.CreatePivotTable(TableDestination:="", TableName:="PivotTable")                     'создание сводной таблицы на основании кеша
+With ActiveSheet
+.Name = "Бензовозы сводная"
+.PivotTableWizard TableDestination:=ActiveSheet.Cells(1, 1)
+End With
+
+With ActiveSheet.PivotTables("PivotTable")
+.PivotFields("Выручка по услугам перевозки:").Orientation = xlDataField
+.PivotFields("Затраты на ГСМ:").Orientation = xlDataField
+.PivotFields("Заработная плата:").Orientation = xlDataField
+.PivotFields("Износ автошин:").Orientation = xlDataField
+.PivotFields("Маржинальная прибыль:").Orientation = xlDataField
+
+.PivotFields("Бензовозы").Orientation = xlRowField
+
+End With
+
+'PT.CalculatedFields.Add Name:="расходы(ЗП, ГСМ, Шины)", Formula:="= Заработная плата:+Расх. Топлива+Износ автошин:", UseStandardFormula:=True
+'если нужно будет добавить вычисляемое поле
+
+PT.NullString = "0" 'ноль в пустых местах
+PT.PivotFields("Сумма по полю Выручка по услугам перевозки:").NumberFormat = "# ##0" 'для разделения разрядов
+PT.PivotFields("Сумма по полю Затраты на ГСМ:").NumberFormat = "# ##0"              'для разделения разрядов
+PT.PivotFields("Сумма по полю Заработная плата:").NumberFormat = "# ##0"            'для разделения разрядов
+PT.PivotFields("Сумма по полю Износ автошин:").NumberFormat = "# ##0"               'для разделения разрядов
+PT.PivotFields("Сумма по полю Маржинальная прибыль:").NumberFormat = "# ##0"        'для разделения разрядов
+
+PT.PivotFields("Сумма по полю Выручка по услугам перевозки:").Name = "Выручка"     'переименуем
+PT.PivotFields("Сумма по полю Затраты на ГСМ:").Name = "ГСМ"                       'переименуем
+PT.PivotFields("Сумма по полю Заработная плата:").Name = "ЗП"                      'переименуем
+PT.PivotFields("Сумма по полю Износ автошин:").Name = "Износ шин"                  'переименуем
+PT.PivotFields("Сумма по полю Маржинальная прибыль:").Name = "Марж.Прибыль"        'переименуем
+
+
+Set PTChart = ActiveWorkbook.Charts.Add(, ActiveSheet)   'создали диаграмму
+Set PTChartRange = PT.TableRange2                        'выбрали диапазон откуда диаграмма будет брать данные
+With PTChart
+ .SetSourceData PTChartRange                             'определяем источник данных для диаграммы
+ .Name = "диаграммаб1"                                   'определяем имя диаграммы
+ .ChartType = xlColumnClustered                          'определяем тип диаграммы
+ .Tab.Color = RGB(123, 128, 128)                         'определяем цвет диаграммы
+End With
+ 
+End Sub
